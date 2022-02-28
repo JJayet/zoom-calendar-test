@@ -3,6 +3,7 @@ import format from 'date-fns/format'
 import getDay from 'date-fns/getDay'
 import fr from 'date-fns/locale/fr'
 import parse from 'date-fns/parse'
+import set from 'date-fns/set'
 import startOfWeek from 'date-fns/startOfWeek'
 import { FC, useEffect, useState } from 'react'
 import { Calendar, dateFnsLocalizer, Event, SlotInfo } from 'react-big-calendar'
@@ -102,7 +103,12 @@ export const App: FC = () => {
   return (
     <div>
       <DragAndDropCalendar
-        selectable
+        selectable={'ignoreEvents'}
+        min={set(new Date(), { hours: 9, minutes: 0 })}
+        max={set(new Date(), { hours: 18, minutes: 0 })}
+        culture={'fr'}
+        tooltipAccessor={(event) => event.resource}
+        toolbar={false}
         popup={true}
         defaultView="week"
         events={events}
