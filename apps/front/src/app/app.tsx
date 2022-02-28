@@ -6,13 +6,14 @@ import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
 import { FC, useEffect, useState } from 'react'
 import { Calendar, dateFnsLocalizer, Event, SlotInfo } from 'react-big-calendar'
-import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop'
+import withDragAndDrop, {
+  withDragAndDropProps,
+} from 'react-big-calendar/lib/addons/dragAndDrop'
 import { Store } from 'react-notifications-component'
 import Popup from 'reactjs-popup'
 
-import { Meeting } from "@fleex/models"
+import { Meeting } from '@fleex/models'
 import { addMinutesToDate } from '@fleex/utils'
-
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -20,11 +21,10 @@ import './app.css'
 
 import { createMeeting, getMeetings } from './meetings'
 
-
 const DragAndDropCalendar = withDragAndDrop(Calendar as unknown as FC)
 
 const locales = {
-  'fr': fr,
+  fr: fr,
 }
 const localizer = dateFnsLocalizer({
   format,
@@ -55,38 +55,45 @@ const App: FC = () => {
 
   const closeModal = (cancel = false) => {
     if (title !== '' && startTime && endTime && !cancel) {
-      createMeeting(title, startTime, differenceInMinutes(endTime, startTime)).then(_ => {
-        setEvents(currentEvents => {
-          const firstEvent: Event = {
-            title: `${_.result.topic} - ${_.result.join_url}`,
-            start: new Date(_.result.start_time),
-            end: addMinutesToDate(new Date(_.result.start_time), _.result.duration),
-          }
-          return [...currentEvents, firstEvent]
+      createMeeting(title, startTime, differenceInMinutes(endTime, startTime))
+        .then((_) => {
+          setEvents((currentEvents) => {
+            const firstEvent: Event = {
+              title: `${_.result.topic} - ${_.result.join_url}`,
+              start: new Date(_.result.start_time),
+              end: addMinutesToDate(
+                new Date(_.result.start_time),
+                _.result.duration,
+              ),
+            }
+            return [...currentEvents, firstEvent]
+          })
+          Store.addNotification({
+            title: 'Success!',
+            message: 'Your meeting have been created',
+            type: 'success',
+            insert: 'top',
+            container: 'top-right',
+            animationIn: ['animate__animated', 'animate__fadeIn'],
+            animationOut: ['animate__animated', 'animate__fadeOut'],
+            dismiss: {
+              duration: 5000,
+              onScreen: true,
+            },
+          })
         })
-        Store.addNotification({
-          title: "Success!",
-          message: "Your meeting have been created",
-          type: "success",
-          insert: "top",
-          container: "top-right",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 5000,
-            onScreen: true
-          }
-        })
-      }).catch(console.log)
+        .catch(console.log)
     }
     setOpen(false)
     resetForm()
   }
 
   useEffect(() => {
-    getMeetings().then(_ => {
-      setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
-    }).catch(console.error)
+    getMeetings()
+      .then((_) => {
+        setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
+      })
+      .catch(console.error)
   }, [])
 
   const onSelectSlot = (data: SlotInfo) => {
@@ -95,10 +102,10 @@ const App: FC = () => {
     setOpen(true)
   }
 
-  const onEventResize: withDragAndDropProps['onEventResize'] = data => {
+  const onEventResize: withDragAndDropProps['onEventResize'] = (data) => {
     const { start, end } = data
 
-    setEvents(currentEvents => {
+    setEvents((currentEvents) => {
       const firstEvent = {
         start: new Date(start),
         end: new Date(end),
@@ -107,27 +114,27 @@ const App: FC = () => {
     })
   }
 
-  const onEventDrop: withDragAndDropProps['onEventDrop'] = data => {
+  const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
     console.log(data)
   }
 
   const onSelectEvent = (event: Event) => {
     const url = event.title ? event.title.toString().split(' - ')[1] : ''
     Store.addNotification({
-      title: "Meeting URL",
+      title: 'Meeting URL',
       message: url,
-      type: "info",
-      insert: "top",
-      container: "bottom-center",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
+      type: 'info',
+      insert: 'top',
+      container: 'bottom-center',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
       dismiss: {
         duration: 5000,
         pauseOnHover: true,
         click: false,
         touch: false,
-        showIcon: true
-      }
+        showIcon: true,
+      },
     })
   }
 
@@ -136,7 +143,7 @@ const App: FC = () => {
       <DragAndDropCalendar
         selectable
         popup={true}
-        defaultView='week'
+        defaultView="week"
         events={events}
         localizer={localizer}
         onSelectSlot={onSelectSlot}
@@ -146,11 +153,23 @@ const App: FC = () => {
         resizable
         style={{ height: '100vh' }}
       />
-      <Popup open={open} onClose={() => setOpen(false)} closeOnDocumentClick={false}>
+      <Popup
+        open={open}
+        onClose={() => setOpen(false)}
+        closeOnDocumentClick={false}
+      >
         <div className="modal">
           <p>Please enter the name of the meeting</p>
-          <p>{format(startTime ?? new Date(), 'dd-MM-yyyy hh:mm')} - {format(endTime ?? new Date(), 'dd-MM-yyyy hh:mm')}</p>
-          <input type='text' value={title} onChange={e => setTitle(e.target.value)} /><br/>
+          <p>
+            {format(startTime ?? new Date(), 'dd-MM-yyyy hh:mm')} -{' '}
+            {format(endTime ?? new Date(), 'dd-MM-yyyy hh:mm')}
+          </p>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
           <button onClick={() => closeModal()}>Save meeting</button>
           <button onClick={() => closeModal(true)}>Cancel</button>
         </div>

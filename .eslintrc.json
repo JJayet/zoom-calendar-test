@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx", "import"],
+  "plugins": ["@nrwl/nx", "import", "prettier"],
   "parserOptions": {
     "project": "./tsconfig.base.json"
   },
@@ -26,7 +26,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript", "plugin:import/typescript"],
+      "extends": ["plugin:@nrwl/nx/typescript", "plugin:import/typescript", "prettier"],
       "rules": {
         "@typescript-eslint/await-thenable": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -76,7 +76,8 @@
         "no-useless-return": "error",
         "no-unneeded-ternary": "error",
         "prefer-arrow-callback": ["error"],
-        "prefer-const": "error"
+        "prefer-const": "error",
+        "prettier/prettier": "error"
       }
     },
     {
