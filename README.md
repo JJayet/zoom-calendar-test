@@ -1,94 +1,104 @@
-
-
 # Fleex
 
-This project was generated using [Nx](https://nx.dev).
+## ⚡ How does it work?
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+This is a monorepo handled via [nx](https://nx.dev/), meaning a few things will be simplified for us.
 
-🔎 **Smart, Fast and Extensible Build System**
+[Please have a look at the documentation](https://nx.dev/l/r/getting-started/intro).
 
-## Adding capabilities to your workspace
+## ⚡ Getting started
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```bash
+# using fnm to set node version - https://github.com/Schniz/fnm
+fnm use
+# installing pnpm - https://pnpm.io/installation
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+# Installing dependencies
+pnpm i
+# starting app worker
+pnpm start worker
+```
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## ⚡ CLI
 
-Below are our core plugins:
+### 🔶 nx CLI
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+nx comes with [its own CLI](https://nx.dev/l/n/getting-started/nx-cli). Here is a short list of commands that may be
+handy:
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+| Action                                               | Command                                                                         |
+|------------------------------------------------------|---------------------------------------------------------------------------------|
+| 🆘 Get help!!!                                       | `pnpm nx help`                                                                  |
+| 🚀 Run front and server locally                      | `pnpm dev`                                              |
+| ▶️ Run an action on one project                      | `pnpm nx run <project>:<action>`                                                |
+| ▶️ Run an action on all projects                     | `pnpm nx run-many --target=<action> --all`                                      |
+| ▶️ Run an action on a set of projects                | `pnpm nx run-many --target=<action> --projects=<project1>,<project2>`           |
+| ▶️ Run an action only on projects containing changes | `pnpm nx affected:<action>`                                                     |
+| ✅ Run tests for a project (watch)                    | `pnpm test-changes <project>` or `pnpm nx test --project=<project> --watch`     |
+| ✅ Run all tests for a project (watchAll)             | `pnpm test --watchAll` or `pnpm nx test --project=<project> --watchAll`      |
+| ✅ Run all tests                                      | `pnpm test` or `pnpm nx run-many --target=test --parallel --all`            |
+| 📊 Dependencies graph                                | `pnpm nx dep-graph`                                                             |
 
-## Generate an application
+### 🔶 Actions
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+Actions are defined by project in `project.json` files. Here are a few standard actions:
 
-> You can use any of the plugins above to generate applications as well.
+| Action                                           | Description                                                               |
+| ------------------------------------------------ | --------------------------------------------------------------------- |
+| 🛠️ build  | Builds the app/lib. Use `--prod` flag for a production build |
+| 🚀 serve  | Runs the app  |
+| ⚠️ lint  | Run the linter against project files  |
+| ✅ test  | Runs tests |
+| ☑️ e2e  | Runs end to end tests |
+| 🎯 sonar  | Runs sonarcloud scan for the app |
+| 📘 version | Bumps package version  |
+| 🎉 publish | Publishes the package on npm registry |
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+### 🔶 Useful flags
 
-## Generate a library
+| flag                 | Description                                                    |
+|----------------------|----------------------------------------------------------------|
+| ⬛  `--target=x`      | specifies which action to run                                  |
+| ⬛  `--skip-nx-cache` | disables nx caching; the command will be ran fully             |
+| ⬛  `--verbose`       | prints additional error stack trace on failure                 |
+| ⬛  `--projects=x,x`  | `run-many`: specifies which projects to run the action against |
+| ⬛  `--parallel=x`    | `run-many`: allows x tasks to be ran in parallel               |
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+## ⚡ Apps statistics
 
-> You can also use any of the plugins above to generate libraries as well.
+### 🚀 Frontend
 
-Libraries are shareable across libraries and applications. They can be imported from `@fleex/mylib`.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-front&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-front)
 
-## Development server
+### 😼 Server
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jjayet_zoom-calendar-test-server&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=jjayet_zoom-calendar-test-server)
 
-## Code scaffolding
+## ⚡ Tech stack
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+| Responsibility                                     | Documentation                                                     |
+| -------------------------------------------------- | ----------------------------------------------------------------- |
+| 🎁 Project tool                                     | [`nx`](https://nx.dev/l/r/getting-started/intro)                  |
+| :card_file_box: Package manager                    | [`pnpm`](https://pnpm.io)                                         |
+| :toolbox: Language                                 | [`Typescript`](https://www.typescriptlang.org/docs)               |
+| :bangbang: Linting                                 | [`ESLint`](https://eslint.org/)                                   |
+| :pencil2: Code formatting                          | [`Prettier`](https://prettier.io/)                                |
+| ⚛️ Backend framework                                | [`Express`](http://expressjs.com)                                 |
+| :satellite: Http requests                          | [`axios`](https://github.com/axios/axios)                         |
+| :test_tube: Testing library                        | [`Jest`](https://jestjs.io/docs/en/getting-started.html)          |
+| :muscle: CI/CD                                     | [`Github actions`](https://docs.github.com/en/actions/quickstart) |
+| :microscope: Codebase analysis                     | [`Sonarcloud`](https://sonarcloud.io)                             |
