@@ -102,18 +102,6 @@ export const App: FC = () => {
     setOpen(true)
   }
 
-  const onEventResize: withDragAndDropProps['onEventResize'] = (data) => {
-    const { start, end } = data
-
-    setEvents((currentEvents) => {
-      const firstEvent = {
-        start: new Date(start),
-        end: new Date(end),
-      }
-      return [...currentEvents, firstEvent]
-    })
-  }
-
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
     console.log(data)
   }
@@ -148,9 +136,7 @@ export const App: FC = () => {
         localizer={localizer}
         onSelectSlot={onSelectSlot}
         onEventDrop={onEventDrop}
-        onEventResize={onEventResize}
         onSelectEvent={onSelectEvent}
-        resizable
         style={{ height: '100vh' }}
       />
       <Popup
