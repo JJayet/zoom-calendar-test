@@ -1,11 +1,14 @@
-import * as express from 'express';
 import * as bodyParser from 'body-parser'
-import { createMeeting, getMeetings } from './app/zoom'
+import * as cors from 'cors'
 import * as dotEnv from 'dotenv-flow'
+import * as express from 'express'
+import { createMeeting, getMeetings } from './app/zoom'
+
 dotEnv.config()
 
 const app = express();
 app.use(bodyParser.json())
+app.use(cors())
 
 app.get('/meetings', async (_, res) => {
   const meetings = await getMeetings()
