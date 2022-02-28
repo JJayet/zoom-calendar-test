@@ -33,6 +33,14 @@
         "lintFilePatterns": ["apps/server/**/*.ts"]
       }
     },
+    "sonar": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "sonar-scanner",
+        "cwd": "apps/server"
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/server"],

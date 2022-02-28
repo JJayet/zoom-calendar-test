@@ -60,6 +60,14 @@
         "lintFilePatterns": ["apps/front/**/*.{ts,tsx,js,jsx}"]
       }
     },
+    "sonar": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "sonar-scanner",
+        "cwd": "apps/front"
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/front"],

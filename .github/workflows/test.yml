@@ -41,8 +41,18 @@ jobs:
         timeout-minutes: 10
       - run: pnpm exec nx affected --target=lint --parallel --max-parallel=4
         timeout-minutes: 10
-      - run: pnpm exec nx affected --target=test --parallel --max-parallel=4
+      - run: pnpm exec nx affected --target=test --parallel --max-parallel=4 --codeCoverage
         timeout-minutes: 10
+      - name: Fix lcov paths for sonar
+        run: |
+          shopt -s globstar
+          perl -i -p -e 's/(SF:).*(src\/.*)/$1$2/g;' coverage/**/lcov.info
+      - run: pnpm exec nx affected --target=sonar --parallel --max-parallel=6
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          NX_CLOUD_DISTRIBUTED_EXECUTION: false
       - run: pnpm exec nx-cloud stop-all-agents
   agents:
     runs-on: ubuntu-latest
