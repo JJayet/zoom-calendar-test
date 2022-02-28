@@ -10,7 +10,6 @@ import withDragAndDrop, {
   withDragAndDropProps,
 } from 'react-big-calendar/lib/addons/dragAndDrop'
 import { Store } from 'react-notifications-component'
-import Popup from 'reactjs-popup'
 
 import { Meeting } from '@fleex/models'
 import { addMinutesToDate } from '@fleex/utils'
@@ -42,20 +41,26 @@ const meetingToEvent = (meeting: Meeting): Event => ({
 
 export const App: FC = () => {
   const [events, setEvents] = useState<Event[]>([])
-  const [open, setOpen] = useState(false)
-  const [title, setTitle] = useState('')
-  const [startTime, setStartTime] = useState<Date | null>(null)
-  const [endTime, setEndTime] = useState<Date | null>(null)
 
-  const resetForm = () => {
-    setTitle('')
-    setStartTime(null)
-    setEndTime(null)
-  }
+  useEffect(() => {
+    getMeetings()
+      .then((_) => {
+        setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
+      })
+      .catch(console.error)
+  }, [])
 
-  const closeModal = (cancel = false) => {
-    if (title !== '' && startTime && endTime && !cancel) {
-      createMeeting(title, startTime, differenceInMinutes(endTime, startTime))
+  const onSelectSlot = (data: SlotInfo) => {
+    const startDate = data.start as Date
+    const endDate = data.end as Date
+    const title = window.prompt(
+      `Enter a title for this event starting ${format(
+        startDate,
+        'dd-MM-yyyy hh:mm',
+      )} and ending ${format(endDate, 'dd-MM-yyyy hh:mm')}`,
+    )
+    if (title) {
+      createMeeting(title, startDate, differenceInMinutes(startDate, endDate))
         .then((_) => {
           setEvents((currentEvents) => {
             const firstEvent: Event = {
@@ -84,22 +89,6 @@ export const App: FC = () => {
         })
         .catch(console.log)
     }
-    setOpen(false)
-    resetForm()
-  }
-
-  useEffect(() => {
-    getMeetings()
-      .then((_) => {
-        setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
-      })
-      .catch(console.error)
-  }, [])
-
-  const onSelectSlot = (data: SlotInfo) => {
-    setStartTime(data.start as Date)
-    setEndTime(data.end as Date)
-    setOpen(true)
   }
 
   const onEventDrop: withDragAndDropProps['onEventDrop'] = (data) => {
@@ -108,22 +97,7 @@ export const App: FC = () => {
 
   const onSelectEvent = (event: Event) => {
     const url = event.title ? event.title.toString().split(' - ')[1] : ''
-    Store.addNotification({
-      title: 'Meeting URL',
-      message: url,
-      type: 'info',
-      insert: 'top',
-      container: 'bottom-center',
-      animationIn: ['animate__animated', 'animate__fadeIn'],
-      animationOut: ['animate__animated', 'animate__fadeOut'],
-      dismiss: {
-        duration: 5000,
-        pauseOnHover: true,
-        click: false,
-        touch: false,
-        showIcon: true,
-      },
-    })
+    alert(url)
   }
 
   return (
@@ -139,27 +113,6 @@ export const App: FC = () => {
         onSelectEvent={onSelectEvent}
         style={{ height: '100vh' }}
       />
-      <Popup
-        open={open}
-        onClose={() => setOpen(false)}
-        closeOnDocumentClick={false}
-      >
-        <div className="modal">
-          <p>Please enter the name of the meeting</p>
-          <p>
-            {format(startTime ?? new Date(), 'dd-MM-yyyy hh:mm')} -{' '}
-            {format(endTime ?? new Date(), 'dd-MM-yyyy hh:mm')}
-          </p>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <button onClick={() => closeModal()}>Save meeting</button>
-          <button onClick={() => closeModal(true)}>Cancel</button>
-        </div>
-      </Popup>
     </div>
   )
 }

@@ -79,14 +79,5 @@
     "sonar-scanner": "^3.1.0",
     "ts-jest": "27.1.3",
     "typescript": "~4.5.5"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead"
-    ],
-    "development": [
-      "last 1 chrome version"
-    ]
   }
 }
