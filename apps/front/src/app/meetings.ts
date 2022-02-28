@@ -1,5 +1,6 @@
-import { CreatedMeeting, GetZoomMeetingsResult } from "@fleex/models"
 import { format } from "date-fns"
+
+import { CreatedMeeting, GetZoomMeetingsResult } from "@fleex/models"
 
 const baseURL = 'http://localhost:3333'
 

@@ -6,7 +6,8 @@
     "preinstall": "npx only-allow pnpm",
     "dev:back": "nx serve server",
     "dev:front": "nx serve front",
-    "dev": "nx run-many --target=serve --projects=server,front"
+    "dev": "nx run-many --target=serve --projects=server,front",
+    "lint": "nx run-many --target=lint --all"
   },
   "private": true,
   "dependencies": {

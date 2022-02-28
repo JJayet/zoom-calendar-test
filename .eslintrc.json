@@ -1,7 +1,10 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "import"],
+  "parserOptions": {
+    "project": "./tsconfig.base.json"
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -23,8 +26,42 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "extends": ["plugin:@nrwl/nx/typescript", "plugin:import/typescript"],
+      "rules": {
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/member-ordering": "error",
+        "@typescript-eslint/no-confusing-non-null-assertion": "error",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-extra-non-null-assertion": "error",
+        "@typescript-eslint/no-floating-promises": ["error", { "ignoreVoid": true }],
+        "@typescript-eslint/no-non-null-assertion": "error",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/semi": ["error", "never"],
+        "@typescript-eslint/switch-exhaustiveness-check": "error",
+        "import/no-unresolved": "off",
+        "import/order":  ["error", { 
+          "newlines-between": "always",
+          "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+          "alphabetize": { "order": "asc" },
+          "pathGroups": [
+            {
+              "pattern": "@fleex/**",
+              "position": "before",
+              "group": "internal"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": ["builtin"]
+        }]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

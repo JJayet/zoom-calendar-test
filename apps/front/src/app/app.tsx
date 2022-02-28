@@ -1,22 +1,25 @@
+import { differenceInMinutes } from 'date-fns'
+import format from 'date-fns/format'
+import getDay from 'date-fns/getDay'
+import fr from 'date-fns/locale/fr'
+import parse from 'date-fns/parse'
+import startOfWeek from 'date-fns/startOfWeek'
 import { FC, useEffect, useState } from 'react'
 import { Calendar, dateFnsLocalizer, Event, SlotInfo } from 'react-big-calendar'
 import withDragAndDrop, { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop'
 import { Store } from 'react-notifications-component'
-import format from 'date-fns/format'
-import parse from 'date-fns/parse'
-import startOfWeek from 'date-fns/startOfWeek'
-import getDay from 'date-fns/getDay'
-import fr from 'date-fns/locale/fr'
 import Popup from 'reactjs-popup'
+
+import { Meeting } from "@fleex/models"
+import { addMinutesToDate } from '@fleex/utils'
+
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './app.css'
 
 import { createMeeting, getMeetings } from './meetings'
-import { Meeting } from "@fleex/models"
-import { addMinutesToDate } from '@fleex/utils'
-import { differenceInMinutes } from 'date-fns'
+
 
 const DragAndDropCalendar = withDragAndDrop(Calendar as unknown as FC)
 
@@ -73,7 +76,7 @@ const App: FC = () => {
             duration: 5000,
             onScreen: true
           }
-        });
+        })
       }).catch(console.log)
     }
     setOpen(false)
@@ -83,7 +86,7 @@ const App: FC = () => {
   useEffect(() => {
     getMeetings().then(_ => {
       setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
-    })
+    }).catch(console.error)
   }, [])
 
   const onSelectSlot = (data: SlotInfo) => {
@@ -125,7 +128,7 @@ const App: FC = () => {
         touch: false,
         showIcon: true
       }
-    });
+    })
   }
 
   return (
