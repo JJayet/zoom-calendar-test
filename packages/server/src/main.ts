@@ -1,5 +1,7 @@
 import * as express from 'express';
 import { createMeeting, getMeetings } from './app/zoom'
+import * as dotEnv from 'dotenv-flow'
+dotEnv.config()
 
 const app = express();
 
@@ -9,7 +11,7 @@ app.get('/meetings', async (_, res) => {
 });
 
 app.post('/create', async (req, res) => {
-  const meeting = await createMeeting('temp title')
+  const meeting = await createMeeting('temp title', new Date(), 90)
   res.send({ result: meeting });
 })
 
