@@ -6,6 +6,6 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/front',
+  coverageDirectory: '../../coverage/apps/front',
   coverageReporters: ['lcov'],
 }
