@@ -2,7 +2,6 @@
   "version": 2,
   "projects": {
     "front": "packages/front",
-    "front-e2e": "packages/front-e2e",
     "models": "packages/models",
     "server": "packages/server",
     "utils": "packages/utils"
