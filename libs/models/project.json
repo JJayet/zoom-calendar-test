@@ -1,20 +1,20 @@
 {
-  "root": "packages/models",
-  "sourceRoot": "packages/models/src",
+  "root": "libs/models",
+  "sourceRoot": "libs/models/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/models/**/*.ts"]
+        "lintFilePatterns": ["libs/models/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/models"],
+      "outputs": ["coverage/libs/models"],
       "options": {
-        "jestConfig": "packages/models/jest.config.js",
+        "jestConfig": "libs/models/jest.config.js",
         "passWithNoTests": true
       }
     }

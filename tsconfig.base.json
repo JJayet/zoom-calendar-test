@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fleex/models": ["packages/models/src/index.ts"],
-      "@fleex/utils": ["packages/utils/src/index.ts"]
+      "@fleex/models": ["libs/models/src/index.ts"],
+      "@fleex/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

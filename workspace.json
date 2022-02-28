@@ -1,9 +1,9 @@
 {
   "version": 2,
   "projects": {
-    "front": "packages/front",
-    "models": "packages/models",
-    "server": "packages/server",
-    "utils": "packages/utils"
+    "front": "apps/front",
+    "models": "libs/models",
+    "server": "apps/server",
+    "utils": "libs/utils"
   }
 }

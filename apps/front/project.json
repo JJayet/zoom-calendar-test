@@ -1,6 +1,6 @@
 {
-  "root": "packages/front",
-  "sourceRoot": "packages/front/src",
+  "root": "apps/front",
+  "sourceRoot": "apps/front/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,17 +9,17 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/packages/front",
-        "index": "packages/front/src/index.html",
+        "outputPath": "dist/apps/front",
+        "index": "apps/front/src/index.html",
         "baseHref": "/",
-        "main": "packages/front/src/main.tsx",
-        "polyfills": "packages/front/src/polyfills.ts",
-        "tsConfig": "packages/front/tsconfig.app.json",
+        "main": "apps/front/src/main.tsx",
+        "polyfills": "apps/front/src/polyfills.ts",
+        "tsConfig": "apps/front/tsconfig.app.json",
         "assets": [
-          "packages/front/src/favicon.ico",
-          "packages/front/src/assets"
+          "apps/front/src/favicon.ico",
+          "apps/front/src/assets"
         ],
-        "styles": ["packages/front/src/styles.css"],
+        "styles": ["apps/front/src/styles.css"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
       },
@@ -27,8 +27,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "packages/front/src/environments/environment.ts",
-              "with": "packages/front/src/environments/environment.prod.ts"
+              "replace": "apps/front/src/environments/environment.ts",
+              "with": "apps/front/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -57,14 +57,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/front/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/front/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/front"],
+      "outputs": ["coverage/apps/front"],
       "options": {
-        "jestConfig": "packages/front/jest.config.js",
+        "jestConfig": "apps/front/jest.config.js",
         "passWithNoTests": true
       }
     }
