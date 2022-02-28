@@ -7,7 +7,7 @@ export type GetZoomMeetingsResult = {
 
 export type Meeting = {
   uuid: string
-  id: string
+  id: number
   host_id: string
   topic: string
   type: number

@@ -1,11 +1,8 @@
 import * as bodyParser from 'body-parser'
 import * as cors from 'cors'
-import * as dotEnv from 'dotenv-flow'
 import * as express from 'express'
 
 import { createMeeting, getMeetings } from './app/zoom'
-
-dotEnv.config()
 
 const app = express()
 app.use(bodyParser.json())
@@ -23,7 +20,7 @@ app.post('/create', async (req, res) => {
 })
 
 const port = process.env.port || 3333
-const server = app.listen(port, () => {
+export const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
 })
 server.on('error', console.error)
