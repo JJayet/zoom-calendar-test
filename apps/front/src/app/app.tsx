@@ -40,7 +40,7 @@ const meetingToEvent = (meeting: Meeting): Event => ({
   end: addMinutesToDate(new Date(meeting.start_time), meeting.duration),
 })
 
-const App: FC = () => {
+export const App: FC = () => {
   const [events, setEvents] = useState<Event[]>([])
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
@@ -177,5 +177,3 @@ const App: FC = () => {
     </div>
   )
 }
-
-export default App
