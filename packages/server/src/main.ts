@@ -1,9 +1,11 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser'
 import { createMeeting, getMeetings } from './app/zoom'
 import * as dotEnv from 'dotenv-flow'
 dotEnv.config()
 
 const app = express();
+app.use(bodyParser.json())
 
 app.get('/meetings', async (_, res) => {
   const meetings = await getMeetings()
@@ -11,7 +13,9 @@ app.get('/meetings', async (_, res) => {
 });
 
 app.post('/create', async (req, res) => {
-  const meeting = await createMeeting('temp title', new Date(), 90)
+  console.log(req.body)
+  const { topic, startTime, duration } = req.body
+  const meeting = await createMeeting(topic, startTime, duration)
   res.send({ result: meeting });
 })
 
