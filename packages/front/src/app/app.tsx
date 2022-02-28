@@ -41,19 +41,26 @@ const App: FC = () => {
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [endTime, setEndTime] = useState<Date | null>(null)
   
+  const resetForm = () => {
+    setTitle('')
+    setStartTime(null)
+    setEndTime(null)
+  }
+
   const closeModal = () => {
     setOpen(false)
     if (title !== '' && startTime && endTime) {
       createMeeting(title, startTime, differenceInMinutes(endTime, startTime)).then(_ => {
         setEvents(currentEvents => {
-            const firstEvent: Event = {
-              title: _.result.topic,
-              start: new Date(_.result.start_time),
-              end: addMinutesToDate(new Date(_.result.start_time), _.result.duration),
-            }
-            return [...currentEvents, firstEvent]
-          })
+          const firstEvent: Event = {
+            title: _.result.topic,
+            start: new Date(_.result.start_time),
+            end: addMinutesToDate(new Date(_.result.start_time), _.result.duration),
+          }
+          return [...currentEvents, firstEvent]
         })
+        resetForm()
+      })
     }
   }
 
