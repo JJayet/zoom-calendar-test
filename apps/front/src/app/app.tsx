@@ -46,7 +46,7 @@ const App: FC = () => {
   const [title, setTitle] = useState('')
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [endTime, setEndTime] = useState<Date | null>(null)
-  
+
   const resetForm = () => {
     setTitle('')
     setStartTime(null)

@@ -12,7 +12,7 @@ const getZoomJWT = () =>
     exp: ((new Date()).getTime() + 5000)
   }, process.env.ZOOM_API_SECRET)
 
-export const getMeetings = () => 
+export const getMeetings = () =>
   axios.get<GetZoomMeetingsResult>(`https://api.zoom.us/v2/users/${zoomEmail}/meetings`, {
     headers: {
       Authorization: `Bearer ${getZoomJWT()}`
@@ -20,7 +20,7 @@ export const getMeetings = () =>
   }).then(_ => _.data)
 
 export const createMeeting = (topic: string, startTime: Date, duration: number) =>
-  axios.post<CreatedMeeting>(`https://api.zoom.us/v2/users/${zoomEmail}/meetings`,  {
+  axios.post<CreatedMeeting>(`https://api.zoom.us/v2/users/${zoomEmail}/meetings`, {
     topic,
     start_time: startTime,
     duration,
