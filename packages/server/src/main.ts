@@ -16,7 +16,6 @@ app.get('/meetings', async (_, res) => {
 });
 
 app.post('/create', async (req, res) => {
-  console.log(req.body)
   const { topic, startTime, duration } = req.body
   const meeting = await createMeeting(topic, startTime, duration)
   res.send({ result: meeting });
