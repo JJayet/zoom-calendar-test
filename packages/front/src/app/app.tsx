@@ -143,7 +143,7 @@ const App: FC = () => {
         resizable
         style={{ height: '100vh' }}
       />
-      <Popup open={open} closeOnEscape={false} closeOnDocumentClick={false}>
+      <Popup open={open} onClose={() => setOpen(false)} closeOnDocumentClick={false}>
         <div className="modal">
           <p>Please enter the name of the meeting</p>
           <input type='text' value={title} onChange={e => setTitle(e.target.value)} /><br/>
