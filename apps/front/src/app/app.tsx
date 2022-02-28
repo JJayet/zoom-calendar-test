@@ -34,7 +34,7 @@ const localizer = dateFnsLocalizer({
 })
 
 const meetingToEvent = (meeting: Meeting): Event => ({
-  title: `${meeting.topic} - ${meeting.join_url}`,
+  title: meeting.topic,
   start: new Date(meeting.start_time),
   end: addMinutesToDate(new Date(meeting.start_time), meeting.duration),
 })
@@ -64,7 +64,7 @@ export const App: FC = () => {
         .then((_) => {
           setEvents((currentEvents) => {
             const firstEvent: Event = {
-              title: `${_.result.topic} - ${_.result.join_url}`,
+              title: _.result.topic,
               start: new Date(_.result.start_time),
               end: addMinutesToDate(
                 new Date(_.result.start_time),
