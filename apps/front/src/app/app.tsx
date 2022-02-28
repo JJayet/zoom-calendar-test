@@ -35,6 +35,7 @@ const localizer = dateFnsLocalizer({
 
 const meetingToEvent = (meeting: Meeting): Event => ({
   title: meeting.topic,
+  resource: meeting.join_url,
   start: new Date(meeting.start_time),
   end: addMinutesToDate(new Date(meeting.start_time), meeting.duration),
 })
@@ -65,6 +66,7 @@ export const App: FC = () => {
           setEvents((currentEvents) => {
             const firstEvent: Event = {
               title: _.result.topic,
+              resource: _.result.join_url,
               start: new Date(_.result.start_time),
               end: addMinutesToDate(
                 new Date(_.result.start_time),
@@ -95,10 +97,7 @@ export const App: FC = () => {
     console.log(data)
   }
 
-  const onSelectEvent = (event: Event) => {
-    const url = event.title ? event.title.toString().split(' - ')[1] : ''
-    alert(url)
-  }
+  const onSelectEvent = (event: Event) => alert(event.resource)
 
   return (
     <div>
