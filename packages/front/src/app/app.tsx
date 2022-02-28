@@ -50,9 +50,8 @@ const App: FC = () => {
     setEndTime(null)
   }
 
-  const closeModal = () => {
-    setOpen(false)
-    if (title !== '' && startTime && endTime) {
+  const closeModal = (cancel = false) => {
+    if (title !== '' && startTime && endTime && !cancel) {
       createMeeting(title, startTime, differenceInMinutes(endTime, startTime)).then(_ => {
         setEvents(currentEvents => {
           const firstEvent: Event = {
@@ -75,8 +74,9 @@ const App: FC = () => {
             onScreen: true
           }
         });
-      })
+      }).catch(console.log)
     }
+    setOpen(false)
     resetForm()
   }
 
@@ -146,8 +146,10 @@ const App: FC = () => {
       <Popup open={open} onClose={() => setOpen(false)} closeOnDocumentClick={false}>
         <div className="modal">
           <p>Please enter the name of the meeting</p>
+          <p>{format(startTime ?? new Date(), 'dd-MM-yyyy hh:mm')} - {format(endTime ?? new Date(), 'dd-MM-yyyy hh:mm')}</p>
           <input type='text' value={title} onChange={e => setTitle(e.target.value)} /><br/>
-          <button onClick={closeModal}>Save meeting</button>
+          <button onClick={() => closeModal()}>Save meeting</button>
+          <button onClick={() => closeModal(true)}>Cancel</button>
         </div>
       </Popup>
     </div>
