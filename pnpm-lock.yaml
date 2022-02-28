@@ -59,6 +59,7 @@ specifiers:
   react-test-renderer: 17.0.2
   reactjs-popup: 2.0.5
   regenerator-runtime: 0.13.7
+  sonar-scanner: ^3.1.0
   ts-jest: 27.1.3
   tslib: ^2.0.0
   typescript: ~4.5.5
@@ -125,6 +126,7 @@ devDependencies:
   jest: 27.5.1
   prettier: 2.5.1
   react-test-renderer: 17.0.2_react@17.0.2
+  sonar-scanner: 3.1.0
   ts-jest: 27.1.3_7052c46faed9d5554476a6b8a371580c
   typescript: 4.5.5
 
@@ -10315,6 +10317,12 @@ packages:
       faye-websocket: 0.11.4
       uuid: 8.3.2
       websocket-driver: 0.7.4
+    dev: true
+
+  /sonar-scanner/3.1.0:
+    resolution: {integrity: sha1-UcHBEB9UuYq8XYVlIJsdkjKXk0M=}
+    hasBin: true
+    requiresBuild: true
     dev: true
 
   /source-map-js/1.0.2:
