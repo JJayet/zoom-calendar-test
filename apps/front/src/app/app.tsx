@@ -14,7 +14,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './app.css'
 
 import { createMeeting, getMeetings } from './meetings'
-import { Meeting } from '@fleex/models'
+import { Meeting } from "@fleex/models"
 import { addMinutesToDate } from '@fleex/utils'
 import { differenceInMinutes } from 'date-fns'
 
