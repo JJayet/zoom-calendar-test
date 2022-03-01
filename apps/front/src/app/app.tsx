@@ -17,7 +17,6 @@ import { addMinutesToDate } from '@fleex/utils'
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import './app.css'
 
 import { createMeeting, getMeetings } from './meetings'
 
@@ -47,10 +46,16 @@ export const App: FC = () => {
   useEffect(() => {
     getMeetings()
       .then((_) => {
-        setEvents([...events, ..._.result.meetings.map(meetingToEvent)])
+        const newEvents = _.result.meetings.map(meetingToEvent)
+        const eventsToAdd = newEvents.filter(
+          (ne) => !events.find((_) => _.resource === ne.resource),
+        )
+        if (eventsToAdd.length > 0) {
+          setEvents([...events, ...eventsToAdd])
+        }
       })
       .catch(console.error)
-  }, [])
+  }, [events])
 
   const onSelectSlot = (data: SlotInfo) => {
     const startDate = data.start as Date
